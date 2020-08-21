@@ -20,6 +20,7 @@ public class ThymeleafConfig implements WebMvcConfigurer {
         templateResolver.setPrefix("/WEB-INF/views/");
         templateResolver.setSuffix(".html");
         templateResolver.setTemplateMode("HTML5");
+
         return templateResolver;
     }
 

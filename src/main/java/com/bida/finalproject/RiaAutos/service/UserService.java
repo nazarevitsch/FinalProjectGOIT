@@ -30,8 +30,8 @@ public class UserService implements UserDetailsService {
 
 
     public User findByUsername(String username){
-        return userRepository.findByUsername(username)
-                .orElseThrow(() -> new EntityNotFoundException("No user with username " + username));
+        return userRepository.findByUsername(username);
+//                .orElseThrow(() -> new EntityNotFoundException("No user with username " + username));
     }
 
     public List<User> findAllUsers(){
@@ -48,6 +48,7 @@ public class UserService implements UserDetailsService {
 
     public User save(UserRegistrationDTO registration){
         User user = new User();
+        user.setUsername(registration.getUsername());
         user.setFirstName(registration.getFirstName());
         user.setLastName(registration.getLastName());
         user.setPassword(passwordEncoder.encode(registration.getPassword()));
