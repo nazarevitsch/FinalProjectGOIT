@@ -1,14 +1,15 @@
 package com.bida.finalproject.riaautos.domain;
 
-public enum Mark {
-    AUDI("Audi", 6), MERCEDES_BENZ("Mercedes-Benz", 48),
-    VOLKSWAGEN("Volkswagen", 84), RENAULT("Renault", 62),
-    BMW("BMW", 9), VOLVO("Volvo", 85), TOYOTA("Toyota", 79),
-    HONDA("Honda", 28), INFINITI("Infiniti", 128);
+public enum GearBox {
+    MANUAL("Ручная / Механика", 1), AUTO("Автомат", 2),
+    TYPETRONIC("Типтроник", 3), ADAPTIV("Адаптивная", 4),
+    VARIATOR("Вариатор", 5);
     private String name;
     private int value;
 
-    Mark(String name, int value){
+    GearBox(){}
+
+    GearBox(String name, int value) {
         this.name = name;
         this.value = value;
     }

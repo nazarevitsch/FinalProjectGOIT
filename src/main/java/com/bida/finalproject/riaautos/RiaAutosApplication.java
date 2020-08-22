@@ -10,8 +10,9 @@ public class RiaAutosApplication {
 	public static void main(String[] args) throws Exception{
 
 		SpringApplication.run(RiaAutosApplication.class, args);
-		CreateDB createDB = new CreateDB();
-		createDB.createModelsTable();
+
+//		CreateDB createDB = new CreateDB();
+//		createDB.createModelsTable();
 
 
 

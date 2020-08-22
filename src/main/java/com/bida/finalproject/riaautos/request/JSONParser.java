@@ -7,13 +7,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class JSONParser {
 
-    public static Object[] parseModels(String json){
+    public static Model[] parseModels(String json){
         Gson gson = new Gson();
         Model[] models = gson.fromJson(json, Model[].class);
-        for (int i = 0; i < models.length; i++){
-            System.out.println(i);
-            System.out.println(models[i]);
-        }
         return models;
     }
 }

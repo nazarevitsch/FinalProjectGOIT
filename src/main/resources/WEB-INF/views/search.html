@@ -22,6 +22,20 @@
             </th:block>
         </select>
     </p>
+    <p>Gearbox:
+        <select>
+            <th:block th:each="gearBox : ${gearBoxes}">
+                <option th:value="${gearBox.getValue()}" th:utext="${gearBox.getName()}"></option>
+            </th:block>
+        </select>
+    </p>
+    <p>Type of fuel:
+        <select>
+            <th:block th:each="fuelType : ${fuelTypes}">
+                <option th:value="${fuelType.getValue()}" th:utext="${fuelType.getName()}"></option>
+            </th:block>
+        </select>
+    </p>
 <!--    <p>Mark: </p><input id="" />-->
 <!--    <p>Model: </p><input id="" />-->
 <!--    <p>City: </p><input id="" />-->

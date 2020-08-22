@@ -17,9 +17,17 @@ public class CreateDB {
 
     public void createModelsTable(){
         Request request = new Request();
-        String json = request.getAllModelsByCategoryAndByModel(1, Mark.AUDI.getValue());
-        Model[] models = (Model[]) JSONParser.parseModels(json);
-        List<Model> modelsList = Arrays.asList(models);
-        modelService.saveModel(modelsList.get(1));
+        Mark[] marks = Mark.values();
+        for (int i = 0; i < marks.length; i++) {
+            System.out.println(marks[i].getName());
+            try {
+                String json = request.getAllModelsByCategoryAndByModel(1, marks[i].getValue());
+                Model[] models = JSONParser.parseModels(json);
+//                List<Model> modelsList = Arrays.asList(models);
+//                modelService.saveModel(modelsList.get(1));
+            } catch (Exception e) {
+                System.out.println("ERROR");
+            }
+        }
     }
 }
