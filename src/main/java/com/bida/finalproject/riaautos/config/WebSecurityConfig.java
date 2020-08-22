@@ -1,6 +1,6 @@
-package com.bida.finalproject.RiaAutos.config;
+package com.bida.finalproject.riaautos.config;
 
-import com.bida.finalproject.RiaAutos.service.UserService;
+import com.bida.finalproject.riaautos.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,10 +1,10 @@
-package com.bida.finalproject.RiaAutos.repository;
+package com.bida.finalproject.riaautos.repository;
 
-import com.bida.finalproject.RiaAutos.domain.User;
+import com.bida.finalproject.riaautos.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
-
+@Repository
 public interface UserRepository extends JpaRepository<User, Long> {
 
     User findByUsername(String email);

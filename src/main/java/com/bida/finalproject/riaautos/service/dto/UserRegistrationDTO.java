@@ -1,4 +1,4 @@
-package com.bida.finalproject.RiaAutos.service.dto;
+package com.bida.finalproject.riaautos.service.dto;
 
 import lombok.Data;
 

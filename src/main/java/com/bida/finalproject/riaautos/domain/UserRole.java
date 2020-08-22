@@ -1,4 +1,4 @@
-package com.bida.finalproject.RiaAutos.domain;
+package com.bida.finalproject.riaautos.domain;
 
 public enum UserRole {
     ADMINISTRATOR,

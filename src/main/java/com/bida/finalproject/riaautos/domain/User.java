@@ -1,4 +1,4 @@
-package com.bida.finalproject.RiaAutos.domain;
+package com.bida.finalproject.riaautos.domain;
 
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;

@@ -1,4 +1,4 @@
-package com.bida.finalproject.RiaAutos.config;
+package com.bida.finalproject.riaautos.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

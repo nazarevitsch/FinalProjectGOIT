@@ -1,38 +1,39 @@
-package com.bida.finalproject.RiaAutos.request;
+package com.bida.finalproject.riaautos.request;
 
-import com.bida.finalproject.RiaAutos.domain.BodyStyle;
-import com.bida.finalproject.RiaAutos.domain.Model;
-import com.fasterxml.jackson.databind.MappingIterator;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.bida.finalproject.riaautos.domain.BodyStyle;
 
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
-import java.util.List;
 
 public class Request {
 
 
-    public void getAllAutoCategories() throws Exception{
+    public String getAllAutoCategories() throws Exception{
         String uri = "https://developers.ria.com/auto/categories/?api_key=joHGTFk0MJ94jlb9EFbySvyheUMzTw4PcYuIE6vz";
-        System.out.println(getRequest(uri));
+        return getRequest(uri);
     }
 
-    public void getAllBodyStylesByCategoryID(long id){
+    public String getAllBodyStylesByCategoryID(long id){
         String uri = "https://developers.ria.com/auto/categories/" + id + "/bodystyles?api_key=joHGTFk0MJ94jlb9EFbySvyheUMzTw4PcYuIE6vz";
-        System.out.println(getRequest(uri));
+        return getRequest(uri);
     }
 
-    public void getAllMarksByCategoryID(long id) throws Exception{
+    public String getAllMarksByCategoryID(long id) throws Exception{
         String uri = "http://api.auto.ria.com/categories/" + id + "/marks?api_key=joHGTFk0MJ94jlb9EFbySvyheUMzTw4PcYuIE6vz";
-        System.out.println(getRequest(uri));
+        return getRequest(uri);
     }
 
-    public void search(){
+    public String getAllModelsByCategoryAndByModel(long categoryID, long markID){
+        String uri = "http://api.auto.ria.com/categories/" + categoryID + "/marks/" + markID + "/models?api_key=joHGTFk0MJ94jlb9EFbySvyheUMzTw4PcYuIE6vz";
+        return getRequest(uri);
+    }
+
+    public String search(){
         String uri = "https://developers.ria.com/auto/search?api_key=joHGTFk0MJ94jlb9EFbySvyheUMzTw4PcYuIE6vz&category_id=1&" + BodyStyle.CABRIOLET.getValue();
-        System.out.println(getRequest(uri));
+        return getRequest(uri);
     }
 
     private String getRequest(String uri){

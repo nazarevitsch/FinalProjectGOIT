@@ -1,4 +1,4 @@
-package com.bida.finalproject.RiaAutos.domain;
+package com.bida.finalproject.riaautos.domain;
 
 import org.hibernate.HibernateException;
 import org.hibernate.engine.spi.SharedSessionContractImplementor;

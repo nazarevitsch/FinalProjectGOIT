@@ -1,4 +1,4 @@
-package com.bida.finalproject.RiaAutos.domain;
+package com.bida.finalproject.riaautos.domain;
 
 public enum BodyStyle {
     SEDAN("Седан", 3),KROSOVER("Внедорожник / Кроссовер", 5), MINIVAN("Минивэн", 8),

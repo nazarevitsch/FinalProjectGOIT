@@ -1,9 +1,9 @@
-package com.bida.finalproject.RiaAutos.service;
+package com.bida.finalproject.riaautos.service;
 
-import com.bida.finalproject.RiaAutos.domain.User;
-import com.bida.finalproject.RiaAutos.domain.UserRole;
-import com.bida.finalproject.RiaAutos.repository.UserRepository;
-import com.bida.finalproject.RiaAutos.service.dto.UserRegistrationDTO;
+import com.bida.finalproject.riaautos.domain.User;
+import com.bida.finalproject.riaautos.domain.UserRole;
+import com.bida.finalproject.riaautos.repository.UserRepository;
+import com.bida.finalproject.riaautos.service.dto.UserRegistrationDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -13,7 +13,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;

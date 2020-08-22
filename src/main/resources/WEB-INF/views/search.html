@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="UTF-8">
+    <title>Search Auto</title>
+</head>
+<body>
+<form action="#" th:action="@{/post}" th:object="${searchRequest}" method="post">
+    <p>Now only PKW available!</p>
+    <p>Body Type:
+        <select>
+            <th:block th:each="bodyStyle : ${bodyStyles}">
+                <option th:value="${bodyStyle.getValue()}" th:utext="${bodyStyle.getName()}"></option>
+            </th:block>
+        </select>
+    </p>
+    <p>Mark:
+        <select>
+            <th:block th:each="mark : ${marks}">
+                <option th:value="${mark.getValue()}" th:utext="${mark.getName()}"></option>
+            </th:block>
+        </select>
+    </p>
+<!--    <p>Mark: </p><input id="" />-->
+<!--    <p>Model: </p><input id="" />-->
+<!--    <p>City: </p><input id="" />-->
+<!--    <p>Gear: </p><input id="" />-->
+
+</form>
+</body>
+</html>

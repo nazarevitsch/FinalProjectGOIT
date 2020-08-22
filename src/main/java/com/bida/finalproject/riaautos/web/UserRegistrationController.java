@@ -1,8 +1,8 @@
-package com.bida.finalproject.RiaAutos.web;
+package com.bida.finalproject.riaautos.web;
 
-import com.bida.finalproject.RiaAutos.domain.User;
-import com.bida.finalproject.RiaAutos.service.UserService;
-import com.bida.finalproject.RiaAutos.service.dto.UserRegistrationDTO;
+import com.bida.finalproject.riaautos.domain.User;
+import com.bida.finalproject.riaautos.service.UserService;
+import com.bida.finalproject.riaautos.service.dto.UserRegistrationDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
