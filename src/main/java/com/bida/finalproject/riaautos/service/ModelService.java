@@ -14,11 +14,14 @@ public class ModelService {
     private ModelRepository modelRepository;
 
     public void saveModels(List<Model> models){
-        System.out.println("111111");
         modelRepository.saveAll(models);
     }
 
     public void saveModel(Model model){
         modelRepository.saveAndFlush(model);
+    }
+
+    public List<Model> findAll(){
+        return modelRepository.findAll();
     }
 }

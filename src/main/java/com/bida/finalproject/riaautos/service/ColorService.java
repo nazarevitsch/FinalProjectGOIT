@@ -16,4 +16,8 @@ public class ColorService {
     public void saveColors(List<Color> colors){
         colorRepository.saveAll(colors);
     }
+
+    public List<Color> findAll(){
+        return colorRepository.findAll();
+    }
 }

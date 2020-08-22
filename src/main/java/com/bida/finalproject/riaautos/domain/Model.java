@@ -2,6 +2,7 @@ package com.bida.finalproject.riaautos.domain;
 
 import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "models")
@@ -67,5 +68,20 @@ public class Model {
                 ", value=" + value +
                 ", markID=" + markID +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Model model = (Model) o;
+        return value == model.value &&
+                markID == model.markID &&
+                name.equals(model.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, value, markID);
     }
 }

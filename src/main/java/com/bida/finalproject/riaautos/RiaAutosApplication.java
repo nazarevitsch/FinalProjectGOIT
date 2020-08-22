@@ -1,8 +1,5 @@
 package com.bida.finalproject.riaautos;
 
-import com.bida.finalproject.riaautos.config.DataBaseConfiguration;
-import com.bida.finalproject.riaautos.request.CreateDB;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -10,17 +7,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class RiaAutosApplication {
 
 
-	public static void main(String[] args) throws Exception{
+	public static void main(String[] args){
 
-
-		DataBaseConfiguration dataBaseConfiguration = new DataBaseConfiguration();
-		dataBaseConfiguration.createModelsTable();
-
-//		SpringApplication.run(RiaAutosApplication.class, args);
-
-//		CreateDB createDB = new CreateDB();
-//		createDB.createModelsTable();
-//		createDB.createColorsTable();
+		SpringApplication.run(RiaAutosApplication.class, args);
 
 	}
 }

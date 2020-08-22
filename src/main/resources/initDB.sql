@@ -28,13 +28,13 @@ create table models(
 drop table if exists regions cascade;
 create table regions(
                         id serial primary key,
-                        name int,
+                        name varchar(255),
                         value int
 );
 
 drop table if exists colors cascade;
 create table colors(
                        id serial primary key,
-                       name int,
+                       name varchar(255),
                        value int
 );

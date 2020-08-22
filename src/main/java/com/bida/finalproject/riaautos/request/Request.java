@@ -20,7 +20,7 @@ public class Request {
         return getRequest(uri);
     }
 
-    public String getAllAutoCategories() throws Exception{
+    public String getAllAutoCategories(){
         String uri = "https://developers.ria.com/auto/categories/?api_key=joHGTFk0MJ94jlb9EFbySvyheUMzTw4PcYuIE6vz";
         return getRequest(uri);
     }
@@ -30,7 +30,7 @@ public class Request {
         return getRequest(uri);
     }
 
-    public String getAllMarksByCategoryID(long id) throws Exception{
+    public String getAllMarksByCategoryID(long id){
         String uri = "http://api.auto.ria.com/categories/" + id + "/marks?api_key=joHGTFk0MJ94jlb9EFbySvyheUMzTw4PcYuIE6vz";
         return getRequest(uri);
     }

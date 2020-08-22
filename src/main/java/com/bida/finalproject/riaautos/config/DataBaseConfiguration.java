@@ -29,23 +29,27 @@ public class DataBaseConfiguration {
     private RegionService regionService;
 
     @PostConstruct
+    public void createAndUpdateTables(){
+        createModelsTable();
+        createColorsTable();
+        createRegionTable();
+    }
+
     public void createModelsTable(){
+        List<Model> modelsAlreadyExisted = modelService.findAll();
         Request request = new Request();
         Mark[] marks = Mark.values();
         for (int i = 0; i < marks.length; i++) {
-            System.out.println(marks[i].getName());
             try {
                 String json = request.getAllModelsByCategoryAndByModel(1, marks[i].getValue());
                 Model[] models = JSONParser.parseModels(json);
                 for (int l = 0; l < models.length; l++){
                     models[l].setMarkID(marks[i].getValue());
-                    System.out.println(models[l]);
                 }
-                // Does not work !!!
                 List<Model> modelsList = Arrays.asList(models);
-                System.out.println(2222222);
-                System.out.println(modelService);
-                modelService.saveModels(modelsList);
+                if (!modelsAlreadyExisted.containsAll(modelsList)) {
+                    modelService.saveModels(modelsList);
+                }
             } catch (Exception e) {
                 System.out.println("ERROR...");
             }
@@ -53,13 +57,14 @@ public class DataBaseConfiguration {
     }
 
     public void createColorsTable(){
+        List<Color> colorsAlreadyExisted = colorService.findAll();
         Request request = new Request();
         try {
             String json = request.getAllColors();
-            System.out.println(json);
             Color[] colors = JSONParser.parseColors(json);
-            for (int i = 0; i < colors.length; i++) {
-                System.out.println(colors[i]);
+            List<Color> colorsList = Arrays.asList(colors);
+            if (!colorsAlreadyExisted.containsAll(colorsList)){
+                colorService.saveColors(colorsList);
             }
         } catch (Exception e){
             System.out.println("ERROR...");
@@ -67,13 +72,14 @@ public class DataBaseConfiguration {
     }
 
     public void createRegionTable(){
+        List<Region> regionsAlreadyExisted = regionService.findAll();
         Request request = new Request();
         try {
             String json = request.getAllRegions();
-            System.out.println(json);
             Region[] regions = JSONParser.parseRegions(json);
-            for (int i = 0; i < regions.length; i++) {
-                System.out.println(regions[i]);
+            List<Region> regionList = Arrays.asList(regions);
+            if (!regionsAlreadyExisted.containsAll(regionList)){
+                regionService.saveRegions(regionList);
             }
         } catch (Exception e){
             System.out.println("ERROR...");

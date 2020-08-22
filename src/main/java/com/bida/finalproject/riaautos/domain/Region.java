@@ -3,6 +3,7 @@ package com.bida.finalproject.riaautos.domain;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "regions")
@@ -56,5 +57,19 @@ public class Region {
                 ", name='" + name + '\'' +
                 ", value=" + value +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Region region = (Region) o;
+        return value == region.value &&
+                name.equals(region.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, value);
     }
 }

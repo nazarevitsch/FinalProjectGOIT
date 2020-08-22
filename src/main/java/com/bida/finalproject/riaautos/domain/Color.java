@@ -3,6 +3,7 @@ package com.bida.finalproject.riaautos.domain;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @Entity
 @Table(name = "colors")
@@ -56,5 +57,19 @@ public class Color {
                 ", name='" + name + '\'' +
                 ", value=" + value +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Color color = (Color) o;
+        return value == color.value &&
+                name.equals(color.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, value);
     }
 }
