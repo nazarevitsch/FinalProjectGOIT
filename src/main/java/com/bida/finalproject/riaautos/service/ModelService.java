@@ -14,6 +14,7 @@ public class ModelService {
     private ModelRepository modelRepository;
 
     public void saveModels(List<Model> models){
+        System.out.println("111111");
         modelRepository.saveAll(models);
     }
 

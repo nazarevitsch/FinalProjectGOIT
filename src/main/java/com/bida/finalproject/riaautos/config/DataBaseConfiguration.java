@@ -1,16 +1,23 @@
-package com.bida.finalproject.riaautos.request;
+package com.bida.finalproject.riaautos.config;
 
 import com.bida.finalproject.riaautos.domain.Color;
 import com.bida.finalproject.riaautos.domain.Mark;
 import com.bida.finalproject.riaautos.domain.Model;
 import com.bida.finalproject.riaautos.domain.Region;
+import com.bida.finalproject.riaautos.request.JSONParser;
+import com.bida.finalproject.riaautos.request.Request;
 import com.bida.finalproject.riaautos.service.ColorService;
 import com.bida.finalproject.riaautos.service.ModelService;
 import com.bida.finalproject.riaautos.service.RegionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
 
+import javax.annotation.PostConstruct;
+import java.util.Arrays;
+import java.util.List;
 
-public class CreateDB {
+@Configuration
+public class DataBaseConfiguration {
 
     @Autowired
     private ModelService modelService;
@@ -21,6 +28,7 @@ public class CreateDB {
     @Autowired
     private RegionService regionService;
 
+    @PostConstruct
     public void createModelsTable(){
         Request request = new Request();
         Mark[] marks = Mark.values();
@@ -34,8 +42,10 @@ public class CreateDB {
                     System.out.println(models[l]);
                 }
                 // Does not work !!!
-//                List<Model> modelsList = Arrays.asList(models);
-//                modelService.saveModel(modelsList.get(1));
+                List<Model> modelsList = Arrays.asList(models);
+                System.out.println(2222222);
+                System.out.println(modelService);
+                modelService.saveModels(modelsList);
             } catch (Exception e) {
                 System.out.println("ERROR...");
             }
@@ -70,3 +80,4 @@ public class CreateDB {
         }
     }
 }
+

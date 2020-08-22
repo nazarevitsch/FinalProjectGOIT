@@ -10,6 +10,15 @@ import java.time.Duration;
 
 public class Request {
 
+    public String getAllColors(){
+        String uri = "https://developers.ria.com/auto/colors?api_key=joHGTFk0MJ94jlb9EFbySvyheUMzTw4PcYuIE6vz";
+        return getRequest(uri);
+    }
+
+    public String getAllRegions(){
+        String uri = "https://developers.ria.com/auto/states?api_key=joHGTFk0MJ94jlb9EFbySvyheUMzTw4PcYuIE6vz";
+        return getRequest(uri);
+    }
 
     public String getAllAutoCategories() throws Exception{
         String uri = "https://developers.ria.com/auto/categories/?api_key=joHGTFk0MJ94jlb9EFbySvyheUMzTw4PcYuIE6vz";
@@ -46,7 +55,7 @@ public class Request {
                     .build();
 
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-            return response.body().toString();
+            return response.body();
         } catch (Exception e){
             System.out.println("ERROR...");
         }

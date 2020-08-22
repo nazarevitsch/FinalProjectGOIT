@@ -24,3 +24,17 @@ create table models(
                        value int,
                        mark_id int
 );
+
+drop table if exists regions cascade;
+create table regions(
+                        id serial primary key,
+                        name int,
+                        value int
+);
+
+drop table if exists colors cascade;
+create table colors(
+                       id serial primary key,
+                       name int,
+                       value int
+);
