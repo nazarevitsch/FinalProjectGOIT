@@ -3,6 +3,7 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <meta charset="UTF-8">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <title>Search Auto</title>
 </head>
 <body>
@@ -16,12 +17,13 @@
         </select>
     </p>
     <p>Mark:
-        <select>
+        <select id="selectModel">
             <th:block th:each="mark : ${marks}">
                 <option th:value="${mark.getValue()}" th:utext="${mark.getName()}"></option>
             </th:block>
         </select>
     </p>
+    <p style="display: inline">Model: <div id="container"></div></p>
     <p>Gearbox:
         <select>
             <th:block th:each="gearBox : ${gearBoxes}">
@@ -36,11 +38,27 @@
             </th:block>
         </select>
     </p>
-<!--    <p>Mark: </p><input id="" />-->
-<!--    <p>Model: </p><input id="" />-->
-<!--    <p>City: </p><input id="" />-->
-<!--    <p>Gear: </p><input id="" />-->
 
 </form>
+<script>
+    $('#selectModel').change(function(){
+        let json;
+        let id = document.getElementById("selectModel").value;
+        $.ajax({
+            url: "/models?markID=" + id,
+            type: "GET",
+            async: false,
+            success: (data) => {
+                json = data;
+            }
+        });
+        var select = $("<select></select>").attr("id", "cities").attr("name", "cities");
+        $.each(json,function(index,json){
+            select.append($("<option></option>").attr("value", json.value).text(json.name));
+        });
+        $("#container").html(select);
+    });
+
+</script>
 </body>
 </html>

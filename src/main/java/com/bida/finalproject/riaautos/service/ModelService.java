@@ -2,6 +2,7 @@ package com.bida.finalproject.riaautos.service;
 
 import com.bida.finalproject.riaautos.domain.Model;
 import com.bida.finalproject.riaautos.repository.ModelRepository;
+import org.dom4j.rule.Mode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,5 +24,9 @@ public class ModelService {
 
     public List<Model> findAll(){
         return modelRepository.findAll();
+    }
+
+    public List<Model> findAllByMarkID(int markID){
+        return modelRepository.findAllByMarkID(markID);
     }
 }
