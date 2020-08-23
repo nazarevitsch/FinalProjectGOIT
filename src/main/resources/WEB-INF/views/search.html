@@ -7,43 +7,77 @@
     <title>Search Auto</title>
 </head>
 <body>
-<form action="#" th:action="@{/post}" th:object="${searchRequest}" method="post">
-    <p>Now only PKW available!</p>
+<div>
+    <ul class="nav navbar-nav">
+        <li><a th:href="@{/logout}">Logout</a></li>
+        <li><a th:href="@{/}">Index</a></li>
+        <li><a th:href="@{/search}">Search</a></li>
+    </ul>
+</div>
+<form action="#" th:action="@{/search_query}" th:object="${search}" method="post">
+    <p>Now only PKW available!<input id="categoryID" name="categoryID" value = "1" hidden = "true"/></p>
     <p>Body Type:
-        <select>
+        <select id="bodyStyleID" name="bodyStyleID">
+            <option selected value="-1">!! Select !!</option>
             <th:block th:each="bodyStyle : ${bodyStyles}">
                 <option th:value="${bodyStyle.getValue()}" th:utext="${bodyStyle.getName()}"></option>
             </th:block>
         </select>
-    </p>
+    <p style="color: red"> * should be selected</p></p>
     <p>Mark:
-        <select id="selectModel">
+        <select id="markID" name="markID">
+            <option selected value="-1">!! Select !!</option>
             <th:block th:each="mark : ${marks}">
                 <option th:value="${mark.getValue()}" th:utext="${mark.getName()}"></option>
             </th:block>
         </select>
+    <p style="color: red"> * should be selected</p>
     </p>
-    <p style="display: inline">Model: <div id="container"></div></p>
+
+
+    <p>Model: <div id="container"></div><p style="color: red"> * should be selected</p></p>
+
+
+    <p>Price from:<input type="number" value="0" id="priceFrom" name="priceFrom"/> $</p>
+    <p>Price to:<input type="number" value="0" id="priceTo" name="priceTo"/> $</p>
     <p>Gearbox:
-        <select>
+        <select id="gerBoxID" name="gearBoxID">
+            <option selected value="-1">!! Select !!</option>
             <th:block th:each="gearBox : ${gearBoxes}">
                 <option th:value="${gearBox.getValue()}" th:utext="${gearBox.getName()}"></option>
             </th:block>
         </select>
     </p>
     <p>Type of fuel:
-        <select>
+        <select id="fuelTypeID" name="fuelTypeID">
+            <option selected value="-1">!! Select !!</option>
             <th:block th:each="fuelType : ${fuelTypes}">
                 <option th:value="${fuelType.getValue()}" th:utext="${fuelType.getName()}"></option>
             </th:block>
         </select>
     </p>
-
+    <p>Region:
+        <select id="regionID" name="regionID">
+            <option selected value="-1">!! Select !!</option>
+            <th:block th:each="region : ${regions}">
+                <option th:value="${region.getValue()}" th:utext="${region.getName()}"></option>
+            </th:block>
+        </select>
+    </p>
+    <p>Color:
+        <select id="colorID" name="colorID">
+            <option selected value="-1">!! Select !!</option>
+            <th:block th:each="color : ${colors}">
+                <option th:value="${color.getValue()}" th:utext="${color.getName()}"></option>
+            </th:block>
+        </select>
+    </p>
+    <input type="submit" value="Search">
 </form>
 <script>
-    $('#selectModel').change(function(){
+    $('#markID').change(function(){
         let json;
-        let id = document.getElementById("selectModel").value;
+        let id = document.getElementById("markID").value;
         $.ajax({
             url: "/models?markID=" + id,
             type: "GET",
@@ -52,7 +86,7 @@
                 json = data;
             }
         });
-        var select = $("<select></select>").attr("id", "cities").attr("name", "cities");
+        var select = $("<select></select>").attr("id", "modelID").attr("name", "modelID");
         $.each(json,function(index,json){
             select.append($("<option></option>").attr("value", json.value).text(json.name));
         });

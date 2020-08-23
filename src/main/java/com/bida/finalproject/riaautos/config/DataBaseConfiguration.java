@@ -30,9 +30,9 @@ public class DataBaseConfiguration {
 
     @PostConstruct
     public void createAndUpdateTables(){
-        createModelsTable();
-        createColorsTable();
-        createRegionTable();
+//        createModelsTable();
+//        createColorsTable();
+//        createRegionTable();
     }
 
     public void createModelsTable(){

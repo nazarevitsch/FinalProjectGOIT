@@ -10,6 +10,33 @@ import java.time.Duration;
 
 public class Request {
 
+    public String searchRequest(long categoryID, long bodyStyleID, long markID, long modelID, long regionID, long colorID, long gearBoxID, long typeFuelID, int priceFrom, int priceTo, int page){
+        String uri = "https://developers.ria.com/auto/search?api_key=joHGTFk0MJ94jlb9EFbySvyheUMzTw4PcYuIE6vz";
+        uri = uri + "&category_id=" + categoryID + "&bodystyle[0]=" + bodyStyleID + "&marka_id[0]=" + markID + "&model_id[0]=" + modelID;
+        if (regionID != -1){
+            uri = uri + "&state[0]=" + regionID + "&city[0]=0";
+        }//"result":{"search_result":{"ids":["27719768","27651891","27183875","26565633","27555364","27617697","27419990","27352383","27223113","24357099"]
+        if (colorID != -1){
+            uri = uri + "&color[0]=" + colorID;
+        }
+        if (gearBoxID != -1){
+            uri = uri + "&gearbox[0]=" + gearBoxID;
+        }
+        if (typeFuelID != -1){
+            uri = uri + "&type[0]=" + typeFuelID;
+        }
+        if (priceFrom != 0){
+            uri = uri + "&price_ot=" + priceFrom;
+        }
+        if (priceTo != 0){
+            uri = uri + "&price_do=" + priceTo;
+        }
+        if (page != 0){
+            uri = uri + "&page=" + page;
+        }
+        return getRequest(uri);
+    }
+
     public String getAllColors(){
         String uri = "https://developers.ria.com/auto/colors?api_key=joHGTFk0MJ94jlb9EFbySvyheUMzTw4PcYuIE6vz";
         return getRequest(uri);
@@ -40,8 +67,8 @@ public class Request {
         return getRequest(uri);
     }
 
-    public String search(){
-        String uri = "https://developers.ria.com/auto/search?api_key=joHGTFk0MJ94jlb9EFbySvyheUMzTw4PcYuIE6vz&category_id=1&" + BodyStyle.CABRIOLET.getValue();
+    public String searchAutoByID(String id){
+        String uri = "https://developers.ria.com/auto/info?api_key=joHGTFk0MJ94jlb9EFbySvyheUMzTw4PcYuIE6vz&auto_id=" + id;
         return getRequest(uri);
     }
 

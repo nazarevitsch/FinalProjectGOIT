@@ -1,5 +1,7 @@
 package com.bida.finalproject.riaautos;
 
+import com.bida.finalproject.riaautos.domain.Region;
+import com.bida.finalproject.riaautos.request.Request;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

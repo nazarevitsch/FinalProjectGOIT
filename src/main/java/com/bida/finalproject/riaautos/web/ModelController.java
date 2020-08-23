@@ -18,7 +18,6 @@ public class ModelController {
 
     @GetMapping("/models")
     public ResponseEntity<List<Model>> getModels(@RequestParam(name = "markID") int markID){
-        System.out.println(modelService.findAllByMarkID(markID));
         return ResponseEntity.ok(modelService.findAllByMarkID(markID));
     }
 }
