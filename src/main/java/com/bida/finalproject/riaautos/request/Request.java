@@ -1,6 +1,7 @@
 package com.bida.finalproject.riaautos.request;
 
 import com.bida.finalproject.riaautos.domain.BodyStyle;
+import com.bida.finalproject.riaautos.domain.Search;
 
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -10,31 +11,41 @@ import java.time.Duration;
 
 public class Request {
 
-    public String searchRequest(long categoryID, long bodyStyleID, long markID, long modelID, long regionID, long colorID, long gearBoxID, long typeFuelID, int priceFrom, int priceTo, int page){
+    public String generateURI(Search search, int page) {
         String uri = "https://developers.ria.com/auto/search?api_key=joHGTFk0MJ94jlb9EFbySvyheUMzTw4PcYuIE6vz";
-        uri = uri + "&category_id=" + categoryID + "&bodystyle[0]=" + bodyStyleID + "&marka_id[0]=" + markID + "&model_id[0]=" + modelID;
-        if (regionID != -1){
-            uri = uri + "&state[0]=" + regionID + "&city[0]=0";
-        }//"result":{"search_result":{"ids":["27719768","27651891","27183875","26565633","27555364","27617697","27419990","27352383","27223113","24357099"]
-        if (colorID != -1){
-            uri = uri + "&color[0]=" + colorID;
+        uri = uri + "&category_id=" + search.getCategoryID() + "&bodystyle[0]=" + search.getBodyStyleID() + "&marka_id[0]=" + search.getMarkID() + "&model_id[0]=" + search.getModelID();
+        if (search.getRegionID() != -1) {
+            uri = uri + "&state[0]=" + search.getRegionID() + "&city[0]=0";
         }
-        if (gearBoxID != -1){
-            uri = uri + "&gearbox[0]=" + gearBoxID;
+        if (search.getColorID() != -1) {
+            uri = uri + "&color[0]=" + search.getColorID();
         }
-        if (typeFuelID != -1){
-            uri = uri + "&type[0]=" + typeFuelID;
+        if (search.getGearBoxID() != -1) {
+            uri = uri + "&gearbox[0]=" + search.getGearBoxID();
         }
-        if (priceFrom != 0){
-            uri = uri + "&price_ot=" + priceFrom;
+        if (search.getFuelTypeID() != -1) {
+            uri = uri + "&type[0]=" + search.getFuelTypeID();
         }
-        if (priceTo != 0){
-            uri = uri + "&price_do=" + priceTo;
+        if (search.getPriceFrom() != 0) {
+            uri = uri + "&price_ot=" + search.getPriceFrom();
         }
-        if (page != 0){
+        if (search.getPriceTo() != 0) {
+            uri = uri + "&price_do=" + search.getPriceTo();
+        }
+        if (page != -1) {
             uri = uri + "&page=" + page;
         }
+        return uri;
+    }
+
+    public String searchRequest(Search search, int page){
+        String uri = generateURI(search, page);
         return getRequest(uri);
+    }
+
+    public String searchRequest(String link, int page){
+        link = link + "&page=" + page;
+        return getRequest(link);
     }
 
     public String getAllColors(){

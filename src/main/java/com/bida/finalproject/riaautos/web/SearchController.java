@@ -3,15 +3,20 @@ package com.bida.finalproject.riaautos.web;
 import com.bida.finalproject.riaautos.domain.*;
 import com.bida.finalproject.riaautos.request.JSONParser;
 import com.bida.finalproject.riaautos.request.Request;
+import com.bida.finalproject.riaautos.service.AutoService;
 import com.bida.finalproject.riaautos.service.ColorService;
 import com.bida.finalproject.riaautos.service.RegionService;
 import com.bida.finalproject.riaautos.service.SearchService;
+import org.dom4j.rule.Mode;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 
 
 import java.security.Principal;
@@ -27,7 +32,10 @@ public class SearchController {
     private ColorService colorService;
 
     @Autowired
-    SearchService searchService;
+    private SearchService searchService;
+
+    @Autowired
+    private AutoService autoService;
 
     @GetMapping("/search")
     public String search(Model model){
@@ -41,29 +49,30 @@ public class SearchController {
     }
 
     @PostMapping("/search_query")
-    public String searchQuery(@ModelAttribute(name = "search")Search search, Principal principal){
+    public String searchQuery(@ModelAttribute(name = "search")Search search, Principal principal, Model model){
         search.setUsername(principal.getName());
         searchService.save(search);
         Request request = new Request();
-        String answer = request.searchRequest(search.getCategoryID(), search.getBodyStyleID(), search.getMarkID(), search.getModelID(), search.getRegionID(),
-                search.getColorID(), search.getGearBoxID(), search.getFuelTypeID(), search.getPriceFrom(), search.getPriceTo(),0);
+        String answer = request.searchRequest(search, 0);
         int count = JSONParser.parseAndFindCount(answer);
         count = count % 10 > 0 ? (count / 10) + 1 : (count / 10);
-        System.out.println(count);
         List<String> list = JSONParser.parseSearchResult(answer);
-        System.out.println(list);
-        for (int i = 1; i < count; i++){
-            System.out.println("I: " + i);
-            answer = request.searchRequest(search.getCategoryID(), search.getBodyStyleID(), search.getMarkID(), search.getModelID(), search.getRegionID(),
-                    search.getColorID(), search.getGearBoxID(), search.getFuelTypeID(), search.getPriceFrom(), search.getPriceTo(), i);
-            List<String> current = JSONParser.parseSearchResult(answer);
-            System.out.println(current);
-            for (int l = 0; l < current.size(); l++){
-                System.out.println(current.get(l));
-                list.add(current.get(l));
-            }
-        }
-        System.out.println(list);
+        model.addAttribute("link", "\"" + request.generateURI(search, -1) + "\"");
+        model.addAttribute("pages", count);
+        model.addAttribute("currentPage", 1);
+        model.addAttribute("autos", autoService.createAutosFromLinks(list));
         return "results";
     }
+
+    @GetMapping("/page")
+    public String page(@RequestHeader("link") String link, @RequestHeader("page") int page, @RequestHeader("pages") int pages, Model model){
+        Request request = new Request();
+        model.addAttribute("link", "\"" + link + "\"");
+        model.addAttribute("pages", pages);
+        model.addAttribute("currentPage", page + 1);
+        model.addAttribute("autos", autoService.createAutosFromLinks(JSONParser.parseSearchResult(request.searchRequest(link, page))));
+        return "results";
+    }
+
+
 }
