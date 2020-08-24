@@ -38,3 +38,19 @@ create table colors(
                        name varchar(255),
                        value int
 );
+
+drop table if exists searches cascade;
+create table searches(
+                         id serial primary key,
+                         username varchar(255),
+                         category_id int,
+                         body_style_id int,
+                         mark_id int,
+                         model_id int,
+                         gear_box_id int,
+                         fuel_type_id int,
+                         region_id int,
+                         color_id int,
+                         price_from int,
+                         price_to int
+);

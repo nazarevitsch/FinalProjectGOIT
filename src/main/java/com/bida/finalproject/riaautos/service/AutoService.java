@@ -15,7 +15,6 @@ public class AutoService {
         Request request = new Request();
         List<Auto> autos = new ArrayList<>();
         for (int i = 0; i < links.size(); i++) {
-            System.out.println(i);
             autos.add(JSONParser.parseAndFindAuto(request.searchAutoByID(links.get(i))));
         }
         return autos;
