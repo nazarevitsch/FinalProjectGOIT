@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+    <meta charset="UTF-8">
+    <title>History of search</title>
+</head>
+<body>
+<div>
+    <ul class="nav navbar-nav">
+        <li><a th:href="@{/logout}">Logout</a></li>
+        <li><a th:href="@{/}">Index</a></li>
+        <li><a th:href="@{/search}">Search</a></li>
+        <li><a th:href="@{/searches_history}">Search history</a></li>
+    </ul>
+</div>
+    <table border="1px" width="100%">
+        <tr>
+            <td>ID</td>
+            <td>Category</td>
+            <td>Body style</td>
+            <td>Mark</td>
+            <td>Model</td>
+            <td>Gearbox</td>
+            <td>Fuel type</td>
+            <td>Region</td>
+            <td>Color</td>
+            <td>Price from</td>
+            <td>Price to</td>
+        </tr>
+        <th:block th:each="search : ${searches}">
+            <tr>
+                <td th:utext="${search.getId()}"></td>
+                <td th:utext="${search.getCategoryName()}"></td>
+                <td th:utext="${search.getBodyStyleName()}"></td>
+                <td th:utext="${search.getMarkName()}"></td>
+                <td th:utext="${search.getModel()}"></td>
+                <td th:utext="${search.getGearBoxName()}"></td>
+                <td th:utext="${search.getFuelTypeName()}"></td>
+                <td th:utext="${search.getRegion()}"></td>
+                <td th:utext="${search.getColor()}"></td>
+                <td th:utext="${search.getPriceFrom()}"></td>
+                <td th:utext="${search.getPriceTo()}"></td>
+            </tr>
+        </th:block>
+    </table>
+
+
+</body>
+</html>

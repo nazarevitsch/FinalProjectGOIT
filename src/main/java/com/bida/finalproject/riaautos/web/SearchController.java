@@ -7,10 +7,7 @@ import com.bida.finalproject.riaautos.service.AutoService;
 import com.bida.finalproject.riaautos.service.ColorService;
 import com.bida.finalproject.riaautos.service.RegionService;
 import com.bida.finalproject.riaautos.service.SearchService;
-import org.dom4j.rule.Mode;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -74,5 +71,10 @@ public class SearchController {
         return "results";
     }
 
+    @GetMapping("/searches_history")
+    public String findAllSearch(Model model, Principal principal){
+        model.addAttribute("searches", searchService.findAllByUsername(principal.getName()));
+        return "searches-history";
+    }
 
 }
