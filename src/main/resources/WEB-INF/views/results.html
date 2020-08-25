@@ -15,27 +15,45 @@
             <li><a th:href="@{/}">Index</a></li>
             <li><a th:href="@{/search}">Search</a></li>
             <li><a th:href="@{/searches_history}">Search history</a></li>
+            <li><a th:href="@{/email_notification}">Email notifications</a></li>
         </ul>
     </div>
     <h3>All results.</h3>
     <div id="container">
     <th:block th:each="auto : ${autos}">
-        <div>
+        <div style="display:flex;">
             <div>
                 <img th:src="${auto.getSeoLinkM()}"/>
             </div>
             <div>
-                <p th:utext="${auto.getTitle()}"></p>
-                <p th:utext="${auto.getPrice()}"></p>
-                <p th:utext="${auto.getLocationCityName()}"></p>
-                <p th:utext="${auto.getPhone()}"></p>
-                <a th:href="${auto.getLinkToView()}">Link</a>
+                <table border="1px">
+                    <tr>
+                        <td>Title</td>
+                        <td th:utext="${auto.getTitle()}"></td>
+                    </tr>
+                    <tr>
+                        <td>Price</td>
+                        <td th:utext="${auto.getPrice()}"></td>
+                    </tr>
+                    <tr>
+                        <td>Location</td>
+                        <td th:utext="${auto.getLocationCityName()}"></td>
+                    </tr>
+                    <tr>
+                        <td>Phone</td>
+                        <td th:utext="${auto.getPhone()}"></td>
+                    </tr>
+                    <tr>
+                        <td>Link</td>
+                        <td><a th:href="${auto.getLinkToView()}">Link</a></td>
+                    </tr>
+                </table>
             </div>
         </div>
     </th:block>
 </div>
 
-        <div style="display: inline">
+        <div style="display: flex">
             <button th:onclick="'changePageMinus(' + ${pages} +','+ ${currentPage} +','+ ${link} + ');'">Prev</button>
             <p> <span th:utext="${currentPage}"></span> / <span th:utext="${pages}"></span></p>
             <button th:onclick="'changePagePlus(' + ${pages} +','+ ${currentPage} +','+ ${link} + ');'">Next</button>
@@ -71,7 +89,7 @@
             console.log(page);
             console.log(link);
             let json;
-            if (page !== (pages - 1)){
+            if (page !== pages){
                 $.ajax({
                     url: "/page",
                     type: "GET",

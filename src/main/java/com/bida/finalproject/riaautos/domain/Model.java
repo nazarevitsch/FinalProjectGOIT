@@ -82,6 +82,6 @@ public class Model {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, value, markID);
+        return Objects.hash(name, value, markID);
     }
 }

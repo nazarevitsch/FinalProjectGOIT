@@ -54,7 +54,6 @@ public class SearchService {
                 }
             }
         }
-        System.out.println(list);
         return list;
     }
 }

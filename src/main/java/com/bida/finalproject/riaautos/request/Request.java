@@ -1,7 +1,8 @@
 package com.bida.finalproject.riaautos.request;
 
-import com.bida.finalproject.riaautos.domain.BodyStyle;
 import com.bida.finalproject.riaautos.domain.Search;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -11,9 +12,22 @@ import java.time.Duration;
 
 public class Request {
 
+    Logger logger = LoggerFactory.getLogger(Request.class);
+
     public String generateURI(Search search, int page) {
         String uri = "https://developers.ria.com/auto/search?api_key=joHGTFk0MJ94jlb9EFbySvyheUMzTw4PcYuIE6vz";
-        uri = uri + "&category_id=" + search.getCategoryID() + "&bodystyle[0]=" + search.getBodyStyleID() + "&marka_id[0]=" + search.getMarkID() + "&model_id[0]=" + search.getModelID();
+        if (search.getCategoryID() != -1){
+         uri = uri + "&category_id=" + search.getCategoryID();
+        }
+        if (search.getBodyStyleID() != -1){
+            uri = uri + "&bodystyle[0]=" + search.getBodyStyleID();
+        }
+        if (search.getMarkID() != -1){
+            uri = uri + "&marka_id[0]=" + search.getMarkID();
+        }
+        if (search.getModelID() != -1){
+            uri = uri + "&model_id[0]=" + search.getModelID();
+        }
         if (search.getRegionID() != -1) {
             uri = uri + "&state[0]=" + search.getRegionID() + "&city[0]=0";
         }
@@ -44,7 +58,9 @@ public class Request {
     }
 
     public String searchRequest(String link, int page){
-        link = link + "&page=" + page;
+        if (page != - 1) {
+            link = link + "&page=" + page;
+        }
         return getRequest(link);
     }
 
@@ -95,7 +111,7 @@ public class Request {
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
             return response.body();
         } catch (Exception e){
-            System.out.println("ERROR...");
+            logger.error("ERROR with Request!!!");
         }
         return null;
     }

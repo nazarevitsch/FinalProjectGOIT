@@ -9,5 +9,5 @@ import java.util.List;
 @Repository
 public interface SearchVersionForWEBRepository extends JpaRepository<SearchVersionForWEB, Long> {
 
-    public List<SearchVersionForWEB> findAllByUsername(String username);
+    List<SearchVersionForWEB> findAllByUsername(String username);
 }

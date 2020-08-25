@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-    <title>Search Auto</title>
+    <title>Get Email Notifications</title>
 </head>
 <body>
 <div>
@@ -16,7 +16,16 @@
         <li><a th:href="@{/email_notification}">Email notifications</a></li>
     </ul>
 </div>
-<form action="#" th:action="@{/search_query}" th:object="${search}" method="post">
+<th:block>
+    <p>
+    <span th:if="${alreadyHasNotification == true}">You have already subscribing on email notifications!<br/>
+    If you want new you should delete previous!</span>
+        <input type="button" th:if="${alreadyHasNotification == true}" onclick="deleteSubscribing()" value="Delete"/>
+    <span th:if="${alreadyHasNotification == false}">You dont have subscribing on email notifications!</span>
+    </p>
+</th:block>
+
+<form action="#" th:action="@{/send_mails_order}" th:object="${search}" method="post">
     <p>Now only PKW available!<input id="categoryID" name="categoryID" value = "1" hidden = "true"/></p>
     <p>Body Type:
         <select id="bodyStyleID" name="bodyStyleID">
@@ -74,7 +83,7 @@
             </th:block>
         </select>
     </p>
-    <input type="submit" value="Search">
+    <input type="submit" value="Get Email Notification">
 </form>
 <script>
     $('#markID').change(function(){
@@ -89,12 +98,22 @@
             }
         });
         var select = $("<select></select>").attr("id", "modelID").attr("name", "modelID");
-        select.append($("<option></option>").attr("value", -1).text("Select"));
         $.each(json,function(index,json){
             select.append($("<option></option>").attr("value", json.value).text(json.name));
         });
         $("#container").html(select);
     });
+
+    function deleteSubscribing() {
+        $.ajax({
+            url: "/delete_email_notification_subscribing",
+            type: "DELETE",
+            async: false,
+            success: () => {
+                location.reload();
+            }
+        });
+    }
 </script>
 </body>
 </html>

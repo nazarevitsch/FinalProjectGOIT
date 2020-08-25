@@ -10,10 +10,7 @@ import com.bida.finalproject.riaautos.service.SearchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.*;
 
 
 import java.security.Principal;
@@ -46,7 +43,7 @@ public class SearchController {
     }
 
     @PostMapping("/search_query")
-    public String searchQuery(@ModelAttribute(name = "search")Search search, Principal principal, Model model){
+    public String searchQuery(@ModelAttribute(name = "search")Search search, Principal principal, Model model, @RequestBody String str){
         search.setUsername(principal.getName());
         searchService.save(search);
         Request request = new Request();

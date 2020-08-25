@@ -54,3 +54,10 @@ create table searches(
                          price_from int,
                          price_to int
 );
+
+drop table if exists mailsending cascade;
+create table mailsending(
+                            id serial primary key,
+                            username varchar(255),
+                            link varchar(255)
+);

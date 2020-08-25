@@ -19,4 +19,13 @@ public class AutoService {
         }
         return autos;
     }
+
+    public String createTestForEmailFromAutos(List<Auto> autos){
+        String line = "";
+        for (int i = 0; i < autos.size(); i++){
+            line = line + "Title: " + autos.get(i).getTitle() + ", Price: " + autos.get(i).getPrice() + ", Phone: " + autos.get(i).getPhone() +
+                     ", Location: " + autos.get(i).getLocationCityName() + ", Link: " + autos.get(i).getLinkToView() + "\n";
+        }
+        return line;
+    }
 }
