@@ -7,8 +7,7 @@ import com.bida.finalproject.riaautos.mailsender.EmailServiceImpl;
 import com.bida.finalproject.riaautos.repository.SearchForEmailNotificationRepository;
 import com.bida.finalproject.riaautos.request.JSONParser;
 import com.bida.finalproject.riaautos.request.Request;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.scheduling.annotation.Scheduled;
@@ -17,10 +16,10 @@ import org.springframework.stereotype.Service;
 import java.util.Date;
 import java.util.List;
 
+@Slf4j
 @Service
 public class MailSendingService {
 
-    Logger logger = LoggerFactory.getLogger(MailSendingService.class);
 
     @Autowired
     private SearchForEmailNotificationRepository searchForEmailNotificationRepository;
@@ -31,7 +30,7 @@ public class MailSendingService {
     @Autowired
     private EmailServiceImpl emailService;
 
-    @Scheduled(cron = "* * 1 * * ?")
+    @Scheduled(cron = "0 10 23 * * ?")
     public void sendingEmails(){
         Request request = new Request();
         List<SearchForEmailNotification> searches = searchForEmailNotificationRepository.findAll();
@@ -44,10 +43,8 @@ public class MailSendingService {
                 list.addAll(JSONParser.parseSearchResult(request.searchRequest(searches.get(i).getLink(), l)));
             }
             List<Auto> autos = autoService.createAutosFromLinks(list);
-            for (int l = 0 ; l < autos.size(); l++){
-                emailService.sendEmail(searches.get(i).getUsername(), "New Cars", autoService.createTestForEmailFromAutos(autos));
-            }
+            emailService.sendEmail(searches.get(i).getUsername(), "New Cars", autoService.createTextForEmailFromAutos(autos));
         }
-        logger.info("All Massages were sent in " + (new Date()) + " !");
+        log.info("All Massages were sent in " + (new Date()) + " !");
     }
 }

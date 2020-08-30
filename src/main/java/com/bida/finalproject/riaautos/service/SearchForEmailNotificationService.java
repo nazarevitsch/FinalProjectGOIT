@@ -7,6 +7,8 @@ import com.bida.finalproject.riaautos.request.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
 @Service
 public class SearchForEmailNotificationService {
 
@@ -21,6 +23,7 @@ public class SearchForEmailNotificationService {
         searchForEmailNotificationRepository.saveAndFlush(searchForEmailNotification);
     }
 
+    @Transactional
     public void delete(String username){
         searchForEmailNotificationRepository.deleteByUsername(username);
     }

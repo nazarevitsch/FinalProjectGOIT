@@ -20,11 +20,16 @@ public class AutoService {
         return autos;
     }
 
-    public String createTestForEmailFromAutos(List<Auto> autos){
+    public String createTextForEmailFromAutos(List<Auto> autos){
         String line = "";
         for (int i = 0; i < autos.size(); i++){
-            line = line + "Title: " + autos.get(i).getTitle() + ", Price: " + autos.get(i).getPrice() + ", Phone: " + autos.get(i).getPhone() +
-                     ", Location: " + autos.get(i).getLocationCityName() + ", Link: " + autos.get(i).getLinkToView() + "\n";
+
+            line = line + String.format("Title: %s, Price: %d, Phone: %s, Location: %s, Link: %s \n", autos.get(i).getTitle(),
+                    autos.get(i).getPrice(), autos.get(i).getPhone(), autos.get(i).getLocationCityName(), autos.get(i).getLinkToView());
+
+
+//            line = line + "Title: " + autos.get(i).getTitle() + ", Price: " + autos.get(i).getPrice() + ", Phone: " + autos.get(i).getPhone() +
+//                     ", Location: " + autos.get(i).getLocationCityName() + ", Link: " + autos.get(i).getLinkToView() + "\n";
         }
         return line;
     }

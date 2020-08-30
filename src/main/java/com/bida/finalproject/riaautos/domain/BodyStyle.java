@@ -10,7 +10,7 @@ public enum BodyStyle {
     private String name;
     private int value;
 
-    private BodyStyle(String name, int value){
+    BodyStyle(String name, int value){
         this.name = name;
         this.value = value;
     }
@@ -29,5 +29,15 @@ public enum BodyStyle {
 
     public void setValue(int value) {
         this.value = value;
+    }
+
+    public static String getNameByValue(long value){
+        BodyStyle[] bodyStyles = BodyStyle.values();
+        for(int i = 0; i < bodyStyles.length; i++){
+            if (bodyStyles[i].value == value){
+                return bodyStyles[i].name;
+            }
+        }
+        return "";
     }
 }

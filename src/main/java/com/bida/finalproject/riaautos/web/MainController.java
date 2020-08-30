@@ -24,8 +24,4 @@ public class MainController {
         return "index";
     }
 
-//    @GetMapping("/user")
-//    public String userIndex() {
-//        return "user/index";
-//    }
 }

@@ -2,6 +2,7 @@ package com.bida.finalproject.riaautos.request;
 
 import com.bida.finalproject.riaautos.domain.*;
 import com.google.gson.Gson;
+import lombok.extern.slf4j.Slf4j;
 import org.json.JSONObject;
 import org.springframework.stereotype.Component;
 
@@ -9,25 +10,23 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+@Slf4j
 @Component
 public class JSONParser {
 
     public static Model[] parseModels(String json){
         Gson gson = new Gson();
-        Model[] models = gson.fromJson(json, Model[].class);
-        return models;
+        return gson.fromJson(json, Model[].class);
     }
 
     public static Color[] parseColors(String json) {
         Gson gson = new Gson();
-        Color[] colors = gson.fromJson(json, Color[].class);
-        return colors;
+        return gson.fromJson(json, Color[].class);
     }
 
     public static Region[] parseRegions(String json) {
         Gson gson = new Gson();
-        Region[] regions = gson.fromJson(json, Region[].class);
-        return regions;
+        return gson.fromJson(json, Region[].class);
     }
 
     public static List<String> parseSearchResult(String json){
@@ -52,22 +51,14 @@ public class JSONParser {
         Auto auto = new Auto();
         try {
             auto.setLocationCityName(jsonObject.getString("locationCityName"));
-        } catch (Exception e){}
-        try {
-        auto.setPhone(jsonObject.getJSONObject("userPhoneData").getString("phone"));
-        } catch (Exception e){}
-        try {
-        auto.setPrice(jsonObject.getInt("USD"));
-        } catch (Exception e){}
-        try {
-        auto.setLinkToView(jsonObject.getString("linkToView"));
-        } catch (Exception e){}
-        try {
-        auto.setTitle(jsonObject.getString("title"));
-        } catch (Exception e){}
-        try {
-        auto.setSeoLinkM(jsonObject.getJSONObject("photoData").getString("seoLinkM"));
-        } catch (Exception e){}
+            auto.setPhone(jsonObject.getJSONObject("userPhoneData").getString("phone"));
+            auto.setPrice(jsonObject.getInt("USD"));
+            auto.setLinkToView(jsonObject.getString("linkToView"));
+            auto.setTitle(jsonObject.getString("title"));
+            auto.setSeoLinkM(jsonObject.getJSONObject("photoData").getString("seoLinkM"));
+        } catch (Exception e){
+            log.error("Error with parsing Auto from Json: ", e.getMessage());
+        }
         return auto;
     }
 }

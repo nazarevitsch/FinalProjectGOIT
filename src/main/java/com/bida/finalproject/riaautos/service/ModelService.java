@@ -2,7 +2,6 @@ package com.bida.finalproject.riaautos.service;
 
 import com.bida.finalproject.riaautos.domain.Model;
 import com.bida.finalproject.riaautos.repository.ModelRepository;
-import org.dom4j.rule.Mode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

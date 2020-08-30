@@ -1,8 +1,7 @@
 package com.bida.finalproject.riaautos.request;
 
 import com.bida.finalproject.riaautos.domain.Search;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -10,46 +9,57 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.time.Duration;
 
+@Slf4j
 public class Request {
 
-    Logger logger = LoggerFactory.getLogger(Request.class);
-
     public String generateURI(Search search, int page) {
-        String uri = "https://developers.ria.com/auto/search?api_key=joHGTFk0MJ94jlb9EFbySvyheUMzTw4PcYuIE6vz";
+        StringBuilder builder = new StringBuilder();
+        builder.append("https://developers.ria.com/auto/search?api_key=joHGTFk0MJ94jlb9EFbySvyheUMzTw4PcYuIE6vz");
         if (search.getCategoryID() != -1){
-         uri = uri + "&category_id=" + search.getCategoryID();
+            builder.append("&category_id=");
+            builder.append(search.getCategoryID());
         }
         if (search.getBodyStyleID() != -1){
-            uri = uri + "&bodystyle[0]=" + search.getBodyStyleID();
+            builder.append("&bodystyle[0]=");
+            builder.append(search.getBodyStyleID());
         }
         if (search.getMarkID() != -1){
-            uri = uri + "&marka_id[0]=" + search.getMarkID();
+            builder.append("&marka_id[0]=");
+            builder.append(search.getMarkID());
         }
         if (search.getModelID() != -1){
-            uri = uri + "&model_id[0]=" + search.getModelID();
+            builder.append("&model_id[0]=");
+            builder.append(search.getModelID());
         }
         if (search.getRegionID() != -1) {
-            uri = uri + "&state[0]=" + search.getRegionID() + "&city[0]=0";
+            builder.append("&state[0]=");
+            builder.append("&city[0]=0");
         }
         if (search.getColorID() != -1) {
-            uri = uri + "&color[0]=" + search.getColorID();
+            builder.append("&color[0]=");
+            builder.append(search.getColorID());
         }
         if (search.getGearBoxID() != -1) {
-            uri = uri + "&gearbox[0]=" + search.getGearBoxID();
+            builder.append("&gearbox[0]=");
+            builder.append(search.getGearBoxID());
         }
         if (search.getFuelTypeID() != -1) {
-            uri = uri + "&type[0]=" + search.getFuelTypeID();
+            builder.append("&type[0]=");
+            builder.append(search.getFuelTypeID());
         }
         if (search.getPriceFrom() != 0) {
-            uri = uri + "&price_ot=" + search.getPriceFrom();
+            builder.append("&price_ot=");
+            builder.append(search.getPriceFrom());
         }
         if (search.getPriceTo() != 0) {
-            uri = uri + "&price_do=" + search.getPriceTo();
+            builder.append("&price_do=");
+            builder.append(search.getPriceTo());
         }
         if (page != -1) {
-            uri = uri + "&page=" + page;
+            builder.append("&page=");
+            builder.append(page);
         }
-        return uri;
+        return builder.toString();
     }
 
     public String searchRequest(Search search, int page){
@@ -90,8 +100,7 @@ public class Request {
     }
 
     public String getAllModelsByCategoryAndByModel(long categoryID, long markID){
-        String uri = "http://api.auto.ria.com/categories/" + categoryID + "/marks/" + markID + "/models?api_key=joHGTFk0MJ94jlb9EFbySvyheUMzTw4PcYuIE6vz";
-        return getRequest(uri);
+        return getRequest(String.format("http://api.auto.ria.com/categories/%d/marks/%d/models?api_key=joHGTFk0MJ94jlb9EFbySvyheUMzTw4PcYuIE6vz", categoryID, markID));
     }
 
     public String searchAutoByID(String id){
@@ -111,7 +120,7 @@ public class Request {
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
             return response.body();
         } catch (Exception e){
-            logger.error("ERROR with Request!!!");
+            log.error("ERROR with Request: {}", e.getMessage());
         }
         return null;
     }

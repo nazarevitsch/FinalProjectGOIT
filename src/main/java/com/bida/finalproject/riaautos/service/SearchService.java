@@ -23,36 +23,12 @@ public class SearchService {
 
     public List<SearchVersionForWEB> findAllByUsername(String username){
         List<SearchVersionForWEB> list =  searchVersionForWEBRepository.findAllByUsername(username);
-        FuelType[] fuelTypes = FuelType.values();
-        GearBox[] gearBoxes = GearBox.values();
-        Mark[] marks = Mark.values();
-        BodyStyle[] bodyStyles = BodyStyle.values();
         for(int i = 0; i < list.size(); i++) {
             list.get(i).setCategoryName("Легковая");
-            for (int l = 0; l < fuelTypes.length; l++) {
-                if (fuelTypes[l].getValue() == list.get(i).getFuelTypeID()){
-                    list.get(i).setFuelTypeName(fuelTypes[l].getName());
-                    break;
-                }
-            }
-            for (int l = 0; l < gearBoxes.length; l++){
-                if (gearBoxes[l].getValue() == list.get(i).getGearBoxID()){
-                    list.get(i).setGearBoxName(gearBoxes[l].getName());
-                    break;
-                }
-            }
-            for (int l = 0; l < marks.length; l++){
-                if (marks[l].getValue() == list.get(i).getMarkID()){
-                    list.get(i).setMarkName(marks[l].getName());
-                    break;
-                }
-            }
-            for (int l = 0; l < bodyStyles.length; l++){
-                if (bodyStyles[l].getValue() == list.get(i).getBodyStyleID()){
-                    list.get(i).setBodyStyleName(bodyStyles[l].getName());
-                    break;
-                }
-            }
+            list.get(i).setFuelTypeName(FuelType.getNameByValue(list.get(i).getFuelTypeID()));
+            list.get(i).setGearBoxName(GearBox.getNameByValue(list.get(i).getGearBoxID()));
+            list.get(i).setMarkName(Mark.getNameByValue(list.get(i).getMarkID()));
+            list.get(i).setBodyStyleName(BodyStyle.getNameByValue(list.get(i).getBodyStyleID()));
         }
         return list;
     }

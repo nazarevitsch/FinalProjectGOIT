@@ -1,5 +1,6 @@
 package com.bida.finalproject.riaautos.mailsender;
 
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,9 +9,9 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Component;
 
 @Component
+@Slf4j
 public class EmailServiceImpl {
 
-    Logger logger = LoggerFactory.getLogger(EmailServiceImpl.class);
 
     @Autowired
     private JavaMailSender mailSender;
@@ -23,7 +24,7 @@ public class EmailServiceImpl {
         message.setText(text);
 
         mailSender.send(message);
-        logger.info("Massage was sent to" + to + " !");
+        log.info("Massage was sent to" + to + " !");
     }
 
 }

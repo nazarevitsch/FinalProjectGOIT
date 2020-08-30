@@ -29,4 +29,14 @@ public enum GearBox {
     public void setValue(int value) {
         this.value = value;
     }
+
+    public static String getNameByValue(long value){
+        GearBox[] gearBoxes = GearBox.values();
+        for(int i = 0; i < gearBoxes.length; i++){
+            if (gearBoxes[i].value == value){
+                return gearBoxes[i].name;
+            }
+        }
+        return "";
+    }
 }

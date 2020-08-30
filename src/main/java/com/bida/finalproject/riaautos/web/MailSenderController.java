@@ -57,6 +57,6 @@ public class MailSenderController {
     @DeleteMapping("/delete_email_notification_subscribing")
     public ResponseEntity deleteSubscribing(Principal principal){
         searchForEmailNotificationService.delete(principal.getName());
-        return new ResponseEntity(HttpStatus.OK);
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 }

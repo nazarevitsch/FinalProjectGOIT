@@ -30,4 +30,14 @@ public enum FuelType {
     public void setValue(int value) {
         this.value = value;
     }
+
+    public static String getNameByValue(long value){
+        FuelType[] fuelTypes = FuelType.values();
+        for(int i = 0; i < fuelTypes.length; i++){
+            if (fuelTypes[i].value == value){
+                return fuelTypes[i].name;
+            }
+        }
+        return "";
+    }
 }

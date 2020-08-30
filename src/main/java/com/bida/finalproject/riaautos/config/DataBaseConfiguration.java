@@ -9,17 +9,19 @@ import com.bida.finalproject.riaautos.request.Request;
 import com.bida.finalproject.riaautos.service.ColorService;
 import com.bida.finalproject.riaautos.service.ModelService;
 import com.bida.finalproject.riaautos.service.RegionService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
-import java.util.logging.Level;
 
 @Configuration
+@Slf4j
+@EnableScheduling
 public class DataBaseConfiguration {
 
     @Autowired
@@ -31,14 +33,12 @@ public class DataBaseConfiguration {
     @Autowired
     private RegionService regionService;
 
-    Logger logger = LoggerFactory.getLogger(DataBaseConfiguration.class);
-
     @PostConstruct
     public void createAndUpdateTables() {
         createModelsTable();
         createColorsTable();
         createRegionTable();
-        logger.info("Data Base is already UPDATED!");
+        log.info("Data Base is already UPDATED!");
     }
 
     public void createModelsTable() {
@@ -48,17 +48,14 @@ public class DataBaseConfiguration {
         for (int i = 0; i < marks.length; i++) {
             try {
                 String json = request.getAllModelsByCategoryAndByModel(1, marks[i].getValue());
-                Model[] models = JSONParser.parseModels(json);
-                List<Model> modelsList = new ArrayList<>();
-                for (int l = 0; l < models.length; l++) {
-                    models[l].setMarkID(marks[i].getValue());
-                    modelsList.add(models[l]);
+                List<Model> modelsList = new ArrayList<>(Arrays.asList(JSONParser.parseModels(json)));
+                for (int l = 0; l < modelsList.size(); l++) {
+                    modelsList.get(l).setMarkID(marks[i].getValue());
                 }
                 modelsList.removeAll(modelsAlreadyExisted);
                 modelService.saveModels(modelsList);
             } catch (Exception e) {
-                e.printStackTrace();
-                System.out.println("ERROR MODELS...");
+                log.error("ERROR with update Models: {}", e.getMessage());
             }
         }
     }
@@ -68,15 +65,11 @@ public class DataBaseConfiguration {
         Request request = new Request();
         try {
             String json = request.getAllColors();
-            Color[] colors = JSONParser.parseColors(json);
-            List<Color> colorsList = new ArrayList<>();
-            for (int i = 0; i < colors.length; i++){
-                colorsList.add(colors[i]);
-            }
+            List<Color> colorsList = new ArrayList<>(Arrays.asList(JSONParser.parseColors(json)));
             colorsList.removeAll(colorsAlreadyExisted);
             colorService.saveColors(colorsList);
         } catch (Exception e) {
-            System.out.println("ERROR COLORS...");
+            log.error("ERROR with update Colors: {}", e.getMessage());
         }
     }
 
@@ -85,15 +78,11 @@ public class DataBaseConfiguration {
         Request request = new Request();
         try {
             String json = request.getAllRegions();
-            Region[] regions = JSONParser.parseRegions(json);
-            List<Region> regionList = new ArrayList<>();
-            for(int i = 0; i < regions.length; i++){
-                regionList.add(regions[i]);
-            }
+            List<Region> regionList = new ArrayList<>(Arrays.asList(JSONParser.parseRegions(json)));
             regionList.removeAll(regionsAlreadyExisted);
             regionService.saveRegions(regionList);
         } catch (Exception e) {
-            System.out.println("ERROR REGION...");
+            log.error("ERROR with update Regions: {}", e.getMessage());
         }
     }
 }

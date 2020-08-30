@@ -28,4 +28,14 @@ public enum Mark {
     public void setValue(int value) {
         this.value = value;
     }
+
+    public static String getNameByValue(long value){
+        Mark[] marks = Mark.values();
+        for(int i = 0; i < marks.length; i++){
+            if (marks[i].value == value){
+                return marks[i].name;
+            }
+        }
+        return "";
+    }
 }
